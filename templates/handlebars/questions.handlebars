@@ -1,0 +1,16 @@
+  <div class="card" id={{question.id}}>
+    <label>
+      {{questionID question.id}}
+    </label>
+    <div class="result">Correct</div>
+
+    <div class="question">
+      {{question.text}}
+    </div>
+    <ul id="answers_{{question.id}}" class="answers">
+      {{answerMarkup question slot="A"}}
+      {{answerMarkup question slot="B"}}
+      {{answerMarkup question slot="C"}}
+      {{answerMarkup question slot="D"}}
+    </ul>
+  </div>

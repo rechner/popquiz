@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="static/css/skeleton.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/normalize.css" />
+{% endblock %}
+
+{% block body %}
+    <!-- this feels so wrong -->
+    <script src="{{ url_for('static', filename='js/teacher.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,15 @@
+  <div class="teacher_question">
+    <label>
+      {{question.id}}
+    </label>
+
+    <div class="question">
+      {{question.text}}
+    </div>
+    <ul id="answers_{{question.id}}" class="answers">
+      {{answerMarkup question slot="A"}}
+      {{answerMarkup question slot="B"}}
+      {{answerMarkup question slot="C"}}
+      {{answerMarkup question slot="D"}}
+    </ul>
+  </div>

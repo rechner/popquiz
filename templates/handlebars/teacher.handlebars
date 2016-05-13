@@ -1,0 +1,25 @@
+<div class="container">
+
+<div class="row">
+    <div class="three columns">
+        <ul>
+            {{#each questions}}
+                <li id="list_{{id}}">{{ id }} <span id="score_{{id}}"></span>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="nine columns">
+        <button id="previous" class="button-primary">« Previous</button>
+        <button id="advance" class="button-primary">Next »</button>
+
+        <div id="teacher_question">
+        </div>
+
+        <div>
+            <span id="score">?/?</span> correct
+        </div>
+    </div>
+</div>
+
+</div>

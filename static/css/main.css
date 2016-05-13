@@ -1,0 +1,164 @@
+
+* {
+    box-sizing: border-box;
+}
+
+.card {
+    max-width: 100%;
+    width: 442px;
+    border: 2px solid #010101;
+    margin: -1px auto 99px;
+    padding: 10px; 
+}
+
+.card > label, 
+.teacher_question > label {
+    height: 43px;
+    text-align: center;
+    color: #919191;
+    display: inline-block;
+    padding-top: 7px;
+    white-space: nowrap;
+}
+
+.card > label em,
+.teacher_question > label em {
+    display: block;
+    font-size: 21px;
+    font-style: normal;
+}
+
+.card .result {
+    position: relative;
+    display: inline;
+    width: 50%;
+    top: -10px;
+    left: 25%;
+    text-align: center !important;
+    font-size: 24px;
+    font-weight: bolder;
+    line-height: 52px;
+    visibility: hidden;
+}
+
+.card .result.correct {
+    visibility: visible;
+    color: green;
+}
+
+.card .result.incorrect {
+    visibility: visible;
+    color: #9d261d;
+}
+
+.answers.perma > li {
+    color: #d5d5d5;
+}
+
+.card .answer.perma_incorrect {
+    text-decoration: line-through;
+    font-weight: bolder;
+    color: #9d261d;
+}
+
+.answer.correct.perma_correct {
+    color: green;
+    font-weight: bolder;
+    font-style: bold;
+}
+
+
+.card .question {
+    margin: 0 8% 2em;
+    font-weight: bolder;
+}
+
+.card .answer {
+    width: 82%;
+    box-sizing: content-box;
+    margin-bottom: 15px;
+}
+
+.card .answer:hover {
+    border:1px dotted #d5d5d5;
+    background:#efefef;
+    background:rgba(0,0,0,0.05);
+}
+
+.card ul, .card li,
+.teacher_question ul, .teacher_question li {
+    list-style: outside none none;
+    position: relative;
+}
+
+.card ul,
+.teacher_question ul{
+    width: 80%;
+    margin-bottom: 10%;
+    margin-left: 10%;
+}
+
+.card .answer label,
+.teacher_question .answer label {
+    display: block;
+    width: 55px;
+    margin: 0px;
+    position: absolute;
+    left: -15%;
+    font-weight: bold;
+}
+
+.teacher_question .question {
+    margin: 10px 10px 10px 10px;
+}
+
+.teacher_question .answers {
+    margin-left: 15%;
+    margin-top: 20px;
+}
+
+button#advance {
+    height: 40px;
+    width: 150px;
+}
+
+button#previous {
+    height: 40px;
+    width: 150px;
+}
+
+body {
+    padding-top: 20px;
+}
+
+#teacher_question {
+    display: block;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+li.active {
+    font-weight: bold;
+}
+
+li.answer > label > span {
+    color: white;
+    background-color: #ccc;
+    padding: 0 4px;
+    font-weight: normal;
+    font-size: 15px;
+    border-radius: 4px;
+}
+
+li.answer.correct > label > span {
+    background-color: green;
+}
+
+li.answer > label > span.missed {
+    background-color: darkred;
+}
+
+#score {
+    font-size: 30px;
+    font-weight: bold;
+}
