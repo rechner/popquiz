@@ -13,7 +13,7 @@ Handlebars.registerHelper('if', function(conditional, options) {
   }
 });
 
-
+// XXX move to global js file
 var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
   var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
   return v.toString(16);
@@ -41,6 +41,7 @@ $.getJSON("static/questions.json", function(json) {
 //$(document).ready(function () {
   namespace = '/events'
   var socket = io.connect(document.domain + ':' + location.port + namespace);
+  socket.emit('join', { "origin" : uuid });
 
   socket.on('add_question', function(msg) {
     if (msg.index in questions.history) {
@@ -53,28 +54,47 @@ $.getJSON("static/questions.json", function(json) {
     document.getElementById(questions.index[msg.index]).scrollIntoView();
   });
 
-  Handlebars.registerHelper('answerMarkup', function(question, options) {
-    $(document).on('click', '#answer_'+question.id+'_'+options.hash.slot, function () {
-      var tokens = $(this).attr('id').split('_');
-      var id = tokens[1];
-      var answer = tokens[2];
+  Handlebars.registerHelper('answerMarkup', function(question, options) { 
+    var select_answer = function (e) {
+      var element = {};
+      var id = '';
+      var answer = '';
+      if (e instanceof KeyboardEvent) {
+        // keyboard press
+        id = $(".card").last().attr("id");
+        answer = String.fromCharCode(e.charCode).toUpperCase();
+        element = $("#answer_"+id+"_"+answer);
+      } else {
+        // clicked
+        tokens = $(this).attr('id').split('_');
+        id = tokens[1];
+        answer = tokens[2];
+        element = this;
+      }
 
       var index = questions.index.indexOf(id);
       $("#answers_"+id+" li").removeClass("perma_incorrect").removeClass("perma_correct");
       if (answer === questions[index].answer) {
-        $(this).parent().addClass("perma");
-        $(this).addClass("perma_correct");
+        $(element).parent().addClass("perma");
+        $(element).addClass("perma_correct");
         $("#"+id+" .result").addClass("correct").html("Correct").removeClass("incorrect");
 
       } else {
-        $(this).parent().addClass("perma");
-        $(this).addClass("perma_incorrect");
+        $(element).parent().addClass("perma");
+        $(element).addClass("perma_incorrect");
         $("#"+id+" .result").addClass("incorrect").html("Incorrect").removeClass("correct");
       }
 
       // notify the network
       socket.emit('answer', { "origin" : uuid, "id" : id, "answer" : answer });
-    });
+    };
+
+    // Bind event handlers
+    $(document).on('click', '#answer_'+question.id+'_'+options.hash.slot, select_answer);
+    if (/^[a-zA-Z0-9_]*$/.test(options.hash.slot)) {
+      Mousetrap.bind(options.hash.slot.toUpperCase(), select_answer);
+      Mousetrap.bind(options.hash.slot.toLowerCase(), select_answer);
+    }
 
     return new Handlebars.SafeString(
       '<li id="answer_'+question.id+'_'+options.hash.slot+'" class="answer' + (options.hash.slot === question.answer ? ' correct' : '') +'">'+
@@ -83,4 +103,22 @@ $.getJSON("static/questions.json", function(json) {
        '</li>'
     );
   });
+
 //});
+
+function isElementInViewport (el) {
+
+    //special bonus for those using jQuery
+    if (typeof jQuery === "function" && el instanceof jQuery) {
+        el = el[0];
+    }
+
+    var rect = el.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
+    );
+}

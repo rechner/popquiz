@@ -18,6 +18,10 @@ def socket_connect():
     #assign buzzer number, setup connections
     pass
 
+@socketio.on('join', namespace='/events')
+def client_join(message):
+    emit('join', message, broadcast=True)
+
 @socketio.on('add_question', namespace='/events')
 def next_question(message):
     emit('add_question', { 'index' : message['index'] }, broadcast=True)

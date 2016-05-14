@@ -150,7 +150,7 @@ $.getJSON("static/questions.json", function(json) {
   $("body").append(template(data));
   update_question();
 
-  $("#advance").on("click", function () {
+  var next_slide = function () {
     if (current_question + 1 == questions.index.length) {
       return;
     }
@@ -158,10 +158,9 @@ $.getJSON("static/questions.json", function(json) {
     current_question++;
     update_question();
     socket.emit('add_question', { "index" : current_question });
+  };
 
-  });
-
-  $("#previous").on("click", function () {
+  var previous_slide = function () {
     if (current_question == 0) {
       return;
     }
@@ -169,6 +168,12 @@ $.getJSON("static/questions.json", function(json) {
     update_question();
     socket.emit('add_question', { "index" : current_question });
 
-  });
-});
+  };
 
+  $("#advance").on("click", next_slide);
+  $("#previous").on("click", previous_slide);
+
+  Mousetrap.bind('right', next_slide);
+  Mousetrap.bind('left', previous_slide);
+
+});

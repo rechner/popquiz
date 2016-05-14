@@ -1,2 +1,6 @@
 - Save user sessions via cookies, or database, etc
-- 
+- Update unfocused teacher overview counts as those events come in
+- Emit uuid on student connect to count the number of participants (and get idea of unanswered # of questions)
+- Total score indication at bottom of student view
+- Include view to see individual student responses (maybe a text field for students to name their devices)
+- Session storage to preserve counts, student responses

@@ -4,7 +4,10 @@
     <div class="three columns">
         <ul>
             {{#each questions}}
-                <li id="list_{{id}}">{{ id }} <span id="score_{{id}}"></span>
+                {{#if section}}
+                  <b><em>{{ section }}</em></b>
+                {{/if}}
+                <li id="list_{{id}}">{{ id }} <span id="score_{{id}}"></span></li>
             {{/each}}
         </ul>
     </div>
