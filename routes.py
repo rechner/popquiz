@@ -6,7 +6,7 @@ from flask.ext.socketio import SocketIO, emit
 def create_app():
     app = Flask(__name__)
     app.config.update(dict(
-        DEBUG=True,
+        DEBUG=False,
         SECRET_KEY='development key'
     ))
     return app

@@ -158,6 +158,11 @@ li.answer > label > span.missed {
     background-color: darkred;
 }
 
+li.answer > div {
+    cursor: pointer;
+}
+
+
 #score {
     font-size: 30px;
     font-weight: bold;
